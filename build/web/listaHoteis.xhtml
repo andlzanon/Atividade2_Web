@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable id="dataTableHoteis"
+                                 var="hoteis"
+                                 value="#{listaHoteis.hoteis}"
+                                 widgetVar="hoteisTable"
+                                 emptyMessage="Nenhum hotel encontrado"
+                                 rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 filteredValue="#{listaHoteis.hoteisFiltrados}">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('hoteisTable').filter()"
+                                             style="width:300px" placeholder="Digite a palavra-chave"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column headerText="Nome" filterBy="#{hoteis.nome}" filterMatchMode="contains">
+                            <h:outputText value="#{hoteis.nome}"/>
+                        </p:column>
+                        
+                        <p:column headerText="CNPJ"
+                                  filterBy="#{hoteis.cnpj}"
+                                  filterMatchMode="exact" >
+                            <f:facet name="filter">
+                                <h:selectOneMenu onchange="PF('hoteisTable').filter()" >
+                                    <f:selectItem itemLabel="Selecionar uma" itemValue="#{null}"
+                                                  noSelectionOption="true" />
+                                    <f:selectItems value="#{listaHoteis.cnpjs}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{hoteis.cnpj}" />
+                        </p:column>
+                        
+                        <p:column headerText="Cidade"
+                                  filterBy="#{hoteis.cidade}"
+                                  filterMatchMode="exact" >
+                            <f:facet name="filter">
+                                <h:selectOneMenu onchange="PF('hoteisTable').filter()" >
+                                    <f:selectItem itemLabel="Selecionar uma" itemValue="#{null}"
+                                                  noSelectionOption="true" />
+                                    <f:selectItems value="#{listaHoteis.cidades}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{hoteis.cidade}" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
