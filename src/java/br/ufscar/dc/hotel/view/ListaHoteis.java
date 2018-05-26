@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dc.ufscar.dc.hotel.view;
+package br.ufscar.dc.hotel.view;
 
 import br.ufscar.dc.hotel.beans.Hotel;
 import br.ufscar.dc.hotel.dao.HotelDAO;
