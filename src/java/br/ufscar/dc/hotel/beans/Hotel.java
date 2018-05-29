@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Andre
  */
-public class Hotel{
+public class Hotel implements Serializable{
     private String cnpj;
     private String nome;
     private String cidade;

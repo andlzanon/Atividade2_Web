@@ -10,20 +10,14 @@
             <ui:define name="content">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h1>Reserva de Hotel</h1>
-                        <p>Ache os melhores Hoteis e os melhores preços
-                            muito mais fácil, simples e sem dor de cabeça!</p>
-                        <p>Milhares de Hotéis do mais econômico ao mais ostentação!</p>
+                        <h1> Bem vindo Site <h:outputText class="text-welcome" value="#{param.user}"/></h1>
+                        <p>Veja as promoções de seu site!</p>
                         <h3>Selecione a opção abaixo</h3>
                         <p>
-                            <button class="btn btn-success btn-lg btn-space"
-                                    jsf:outcome="loginForm">
-                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                                 Login</button>
                             <button class="btn btn-success btn-lg btn-space" 
-                                    jsf:outcome="listaHoteis">
+                                    jsf:outcome="listaPromocaoSite">
                                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                                 Ver os hotéis</button>
+                                Listagem das Promoçõess</button>
                         </p>
                     </div>
                 </div>

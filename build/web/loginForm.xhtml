@@ -4,20 +4,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition template="./template.xhtml">
             <ui:define name="content">
                 <div class="login-page">
                     <h:outputStylesheet name="login.css" library="css" />
                     <div class="form">
-                      <form>
+                      <h:form>
                         <label class="textolabel">Login</label>
-                        <input type="text" placeholder="usuário"/>
-                        <input type="password" placeholder="senha"/>
-                        <button class="btn btn-success btn-space"
-                                    jsf:outcome="loginForm">Entrar</button>
-                      </form>
+                        <input type="text" 
+                               placeholder="usuário"
+                               class="form-control"
+                               jsf:id="usuario"
+                               jsf:label="Usuario"
+                               jsf:value="#{navigationController.usuario}"
+                               jsf:required="true"/>
+                        <input type="password" 
+                               placeholder="senha"
+                               class="form-control"
+                               jsf:id="senha"
+                               jsf:label="Senha"
+                               jsf:value="#{navigationController.senha}"
+                               jsf:required="true"/>
+                        <h:commandButton class="btn btn-success btn-space"
+                                         value="Entrar"
+                                         action="#{navigationController.direcionadorDeNavegacao()}"></h:commandButton>
+                        <p:messages autoUpdate="true" />
+                      </h:form>
                     </div>
                   </div>
             </ui:define>

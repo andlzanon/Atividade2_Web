@@ -45,7 +45,7 @@ public class AdministradorDAO {
         return a;
     }
     
-    public Administrador listarAdmPorNome(String usuario) throws SQLException, NamingException{
+    public Administrador listarAdmPorNome(String usuario) throws SQLException{
         Administrador ret = null;
         try (Connection con = dataSource.getConnection();
                 PreparedStatement ps = con.prepareStatement(ADM_NOME_SQL)){

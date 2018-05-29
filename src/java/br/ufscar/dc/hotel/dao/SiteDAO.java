@@ -46,7 +46,7 @@ public class SiteDAO {
         return s;
     }
     
-    public Site listaSitePorUrl(String site) throws SQLException, NamingException{
+    public Site listaSitePorUrl(String site) throws SQLException{
         Site ret = null;
         try (Connection con = dataSource.getConnection();
                 PreparedStatement ps = con.prepareStatement(SITE_NOME_SQL);) {
