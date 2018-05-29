@@ -28,7 +28,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class NavigationController implements Serializable{
-   
+    
     @Inject
     AdministradorDAO administradorDAO;
     
@@ -43,6 +43,20 @@ public class NavigationController implements Serializable{
     
     String usuario;
     String senha;
+    
+    MensagemBootstrap mensagem;
+    
+    public NavigationController(){
+        recomecar();
+    }
+    
+    public MensagemBootstrap getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(MensagemBootstrap mensagemBootstrap) {
+        this.mensagem = mensagemBootstrap;
+    }
 
     public String getUsuario() {
         return usuario;
@@ -59,8 +73,6 @@ public class NavigationController implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-    
 
     public UIInput getUsuarioInput() {
         return usuarioInput;
@@ -88,18 +100,22 @@ public class NavigationController implements Serializable{
             System.out.println(getUsuario());
             if(administrador != null && administrador.getSenha().equals(getSenha())){
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionToken", "sessionAdm");
                 return "menuAdm?faces-redirect=true&user="+getUsuario();
             }else if(hotel != null && hotel.getSenha().equals(getSenha())){
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-                return "menuHotel?faces-redirect=true&user="+getUsuario();
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionToken", "sessionHotel");
+                return "menuHotel?faces-redirect=true&user="+hotel.getNome();
             }else if(site != null && site.getSenha().equals(getSenha())){
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-                return "menuSite?faces-redirect=true&user="+getUsuario();
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionToken", "sessionSite");
+                return "menuSite?faces-redirect=true&user="+site.getUrl();
             }
             else{
-                //TODO: se tds derem errado entao volta ao login e exibe erro de login incorreto 
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-                return "loginForm?faces-redirect=true&user=erro";
+                mensagem.setMensagem(true, "Usuário ou senha inválidos",
+                MensagemBootstrap.TipoMensagem.TIPO_ERRO);
+                return null;
             }
             
         } catch (SQLException ex) {
@@ -107,6 +123,12 @@ public class NavigationController implements Serializable{
             FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
             return "erro?faces-redirect=true";
         }
+    }
+    
+    private void recomecar(){
+        mensagem = new MensagemBootstrap();
+        mensagem.setMensagem(true, "Para realizar o login digite seu usuário e senha",
+        MensagemBootstrap.TipoMensagem.TIPO_INFO);
     }
 }
     

@@ -13,7 +13,10 @@
                     <h:outputStylesheet name="login.css" library="css" />
                     <div class="form">
                       <h:form>
-                        <label class="textolabel">Login</label>
+                        <div class="alert #{navigationController.mensagem.tipoMensagem}"
+                                 jsf:id="mensagem">
+                                #{navigationController.mensagem.texto} 
+                        </div>
                         <input type="text" 
                                placeholder="usuário"
                                class="form-control"
