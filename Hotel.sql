@@ -40,8 +40,14 @@ values('www.hotelABC.com.br', 'Site Hotel ABC', '1232243', '9876');
 INSERT INTO ADMINISTRADOR(usuario, senha)
 values('admin', 'admin')
 
-//recurso do glassfish-web.xml
+//recurso do glassfish-resources.xml
 <jdbc-resource enabled="true" jndi-name="jdbc/HotelDB" object-type="user" pool-name="HotelDBPool">
     <description/>
 </jdbc-resource>
+
+//recurso do glassfish-web.xml
+<resource-ref>
+        <res-ref-name>jdbc/HotelDBLocal</res-ref-name>
+        <jndi-name>jdbc/HotelDB</jndi-name>
+</resource-ref>
 
