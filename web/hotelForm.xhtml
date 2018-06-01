@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                 <div class="row" jsf:rendered="#{not (sessionScope.sessionToken eq 'sessionAdm')}">
+                    <h1>Ops, parece que você não tem permissão para acessar esta página...</h1>
+                    <h3>É necessário o login de administrador</h3>
+                    <h3>Volte para a home ou veja todos os hotéis disponíveis</h3>
+                </div>
+                
+                <div class="row" jsf:rendered="#{sessionScope.sessionToken eq 'sessionAdm'}">
+                    <div class="col-lg-12 text-center">
+                        <h3>Novo Hotel</h3>
+                        <form class="form-horizontal" jsf:id="formHotel">
+                            <div class="alert #{novoHotel.mensagem.tipoMensagem}" jsf:id="mensagem">
+                            #{novoHotel.mensagem.texto}
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="cnpj">CNPJ</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="cnpj"
+                                           jsf:label="CNPJ"
+                                           jsf:value="#{novoHotel.dadosHotel.cnpj}"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="cnpj" class="text text-danger" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="nome">Nome</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="nome"
+                                           jsf:label="nome"
+                                           jsf:value="#{novoHotel.dadosHotel.nome}"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="nome" class="text text-danger" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="cidade">Cidade</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="cidade"
+                                           jsf:label="Cidade"
+                                           jsf:value="#{novoHotel.dadosHotel.cidade}"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="cidade" class="text text-danger" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"
+                                       for="senha">Senha</label>
+                                <div class="col-sm-4">
+                                    <input type="password"
+                                           class="form-control"
+                                           jsf:redisplay="true"
+                                           jsf:id="senha"
+                                           jsf:label="Senha"
+                                           jsf:value="#{novoHotel.dadosHotel.senha}"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="senha" class="text text-danger" />
+                                </div>
+                            </div>    
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"
+                                       for="senhaConfirmada">Confime sua senha</label>
+                                    <div class="col-sm-4">
+                                        <input type="password"
+                                           class="form-control"
+                                           jsf:redisplay="true"
+                                           jsf:id="senhaConfirmada"
+                                           jsf:label="Confirme a senha"
+                                           jsf:value="#{novoHotel.senhaConfirmada}"
+                                           jsf:required="true"/>
+                                        <h:message for="senhaConfirmada" class="text text-danger" />
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-default"
+                                            jsf:id="enviar">
+                                        <f:ajax execute="@form"
+                                                render="@form"
+                                                onevent="monitorarAjax"
+                                                listener="#{novoHotel.enviarHotel}"/>
+                                        Enviar meu palpite
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group" jsf:rendered="#{novoHotel.escondeBotao}">
+                                <div class="col-sm-12">
+                                    <button type="submit" 
+                                            class="btn btn-success"
+                                            jsf:id="confirmar">
+                                            <f:ajax execute="@form"
+                                                    render="@form"
+                                                    onevent="monitorarAjax"
+                                                    listener="#{novoHotel.confirmarHotel}"/>
+                                        Confirmar novo Hotel
+                                    </button>
+                                </div>                       
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

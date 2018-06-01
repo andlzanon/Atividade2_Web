@@ -38,9 +38,6 @@ public class NavigationController implements Serializable{
     @Inject
     SiteDAO siteDAO;
    
-    UIInput usuarioInput;
-    UIInput senhaInput;
-    
     String usuario;
     String senha;
     
@@ -72,22 +69,6 @@ public class NavigationController implements Serializable{
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public UIInput getUsuarioInput() {
-        return usuarioInput;
-    }
-
-    public void setUsuarioInput(UIInput usuarioInput) {
-        this.usuarioInput = usuarioInput;
-    }
-
-    public UIInput getSenhaInput() {
-        return senhaInput;
-    }
-
-    public void setSenhaInput(UIInput senhaInput) {
-        this.senhaInput = senhaInput;
     }
     
     public String direcionadorDeNavegacao(){

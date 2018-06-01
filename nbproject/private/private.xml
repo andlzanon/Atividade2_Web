@@ -12,15 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/erro.xhtml</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/src/java/br/ufscar/dc/hotel/dao/SiteDAO.java</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/src/java/br/ufscar/dc/hotel/view/NavigationController.java</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/template.xhtml</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/index.xhtml</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/menuHotel.xhtml</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/menuSite.xhtml</file>
-            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/loginForm.xhtml</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/WEB-INF/glassfish-web.xml</file>
             <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/menuAdm.xhtml</file>
+            <file>file:/C:/Users/André/Documents/NetBeansProjects/AtividadeAvaliativa2/web/WEB-INF/glassfish-resources.xml</file>
         </group>
     </open-files>
 </project-private>
