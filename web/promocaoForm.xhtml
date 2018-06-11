@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                 <div class="row" jsf:rendered="#{not (sessionScope.sessionToken eq 'sessionHotel')}">
+                    <h1>Ops, parece que você não tem permissão para acessar esta página...</h1>
+                    <h3>É necessário o login de hotel</h3>
+                    <h3>Volte para a home ou veja todos os hotéis disponíveis</h3>
+                </div>
+                
+                <div class="row" jsf:rendered="#{sessionScope.sessionToken eq 'sessionHotel'}">
+                    <div class="col-lg-12 text-center">
+                        <h3>Nova Promoção</h3>
+                        <form class="form-horizontal" jsf:id="formHotel">
+                            <div class="alert #{novaPromocao.mensagem.tipoMensagem}" jsf:id="mensagem">
+                            #{novaPromocao.mensagem.texto}
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="url">URL</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="url"
+                                           jsf:label="URL"
+                                           jsf:value="#{novaPromocao.dadosPromocao.url.url}"
+                                           jsf:required="true">
+                                    </input>
+                                    <h:message for="url" class="text text-danger" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="cnpj">CNPJ do hotel</label>
+                                <div class="col-sm-10">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="cnpj"
+                                           jsf:label="CNPJ hotel"
+                                           jsf:value="#{sessionScope.cnpjHotel}"
+                                           jsf:disabled="true"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="cnpj" class="text text-danger" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="preco">Preço</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:id="preco"
+                                           jsf:label="Preço"
+                                           jsf:value="#{novaPromocao.dadosPromocao.preco}"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="preco" class="text text-danger" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="data_inicial">Data Inicial</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           jsf:redisplay="true"
+                                           jsf:id="data_inicial"
+                                           jsf:label="Data Inicial"
+                                           jsf:value="#{novaPromocao.dadosPromocao.data_inicial}"
+                                           jsf:required="true">
+                                           <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                    </input>
+                                    <h:message for="data_inicial" class="text text-danger" />
+                                </div>
+                            </div>    
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="data_final">Data Final</label>
+                                    <div class="col-sm-4">
+                                        <input type="text"
+                                           class="form-control"
+                                           jsf:redisplay="true"
+                                           jsf:id="data_final"
+                                           jsf:label="Data Final"
+                                           jsf:value="#{novaPromocao.dadosPromocao.data_final}"
+                                           jsf:required="true">
+                                           <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                        </input>
+                                        <h:message for="data_final" class="text text-danger" />
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-default"
+                                            jsf:id="enviar">
+                                        <f:ajax execute="@form"
+                                                render="@form"
+                                                onevent="monitorarAjax"
+                                                listener="#{novaPromocao.enviarPromocao}"/>
+                                        Enviar Promoção
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group" jsf:rendered="#{novaPromocao.escondeBotao}">
+                                <div class="col-sm-12">
+                                    <button type="submit" 
+                                            class="btn btn-success"
+                                            jsf:id="confirmar">
+                                            <f:ajax execute="@form"
+                                                    render="@form"
+                                                    onevent="monitorarAjax"
+                                                    listener="#{novaPromocao.confirmarPromocao}"/>
+                                        Confirmar nova Promoção
+                                    </button>
+                                </div>                       
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
