@@ -86,10 +86,12 @@ public class NavigationController implements Serializable{
             }else if(hotel != null && hotel.getSenha().equals(getSenha())){
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionToken", "sessionHotel");
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("cnpjHotel", getUsuario());
                 return "menuHotel?faces-redirect=true&user="+hotel.getNome();
             }else if(site != null && site.getSenha().equals(getSenha())){
                 FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sessionToken", "sessionSite");
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("urlSite", getUsuario());
                 return "menuSite?faces-redirect=true&user="+site.getUrl();
             }
             else{

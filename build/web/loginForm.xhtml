@@ -32,9 +32,8 @@
                                jsf:label="Senha"
                                jsf:value="#{navigationController.senha}"
                                jsf:required="true"/>
-                        <h:commandButton class="btn btn-success btn-space"
-                                         value="Entrar"
-                                         action="#{navigationController.direcionadorDeNavegacao()}"></h:commandButton>
+                        <button class="btn btn-success btn-space"
+                                         jsf:action="#{navigationController.direcionadorDeNavegacao()}">ENTRAR</button>
                         <p:messages autoUpdate="true" />
                       </h:form>
                     </div>

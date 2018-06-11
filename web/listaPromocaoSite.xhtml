@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="content">
+                <div class="row" jsf:rendered="#{not (sessionScope.sessionToken eq 'sessionSite')}">
+                    <h1>Ops, parece que você não tem permissão para acessar esta página...</h1>
+                    <h3>É necessário o login de site</h3>
+                    <h3>Volte para a home ou veja todos os hotéis disponíveis</h3>
+                </div>
+                <h:form rendered="#{(sessionScope.sessionToken eq 'sessionSite')}">
+                    <p:dataTable id="dataTablePromocoes"
+                                 var="promocoes"
+                                 value="#{listaPromocaoSite.promocaoSite}"
+                                 widgetVar="promocoesTable"
+                                 emptyMessage="Nenhuma promoção encontrada"
+                                 rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                                 {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 filteredValue="#{listaPromocaoSite.promocaoFiltrados}">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Buscar:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('promocoesTable').filter()"
+                                             style="width:300px" placeholder="Digite a palavra-chave"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column headerText="Nome do Hotel" filterBy="#{promocoes.cnpj.nome}" filterMatchMode="contains">
+                            <h:outputText value="#{promocoes.cnpj.nome}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Preço" filterBy="#{promocoes.preco}" filterMatchMode="contains">
+                            <h:outputText value="#{promocoes.preco}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Data Inicial" filterBy="#{promocoes.data_inicial}" filterMatchMode="contains">
+                            <h:outputText value="#{promocoes.data_inicial}">
+                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column headerText="Data Final" filterBy="#{promocoes.data_final}" filterMatchMode="contains">
+                            <h:outputText value="#{promocoes.data_final}">
+                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
