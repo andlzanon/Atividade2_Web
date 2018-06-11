@@ -128,10 +128,7 @@ public class NovaPromocao implements Serializable{
         escondeBotao = false;
         mensagem = new MensagemBootstrap();
         mensagem.setMensagem(true, "Digite os dados da nova promoção", MensagemBootstrap.TipoMensagem.TIPO_INFO);
-        Promocao promocao = new Promocao();
-        Site site = new Site();
-        site.setUrl("www");
-        promocao.setUrl(site);
+        dadosPromocao = new Promocao();
     }
     
     private void simularDemora() {

@@ -20,6 +20,10 @@ public class Promocao implements Serializable{
     private Double preco;
     private Date data_inicial;
     private Date data_final;
+    
+    public Promocao(){
+        url = new Site();
+    }
 
     public int getId() {
         return id;
