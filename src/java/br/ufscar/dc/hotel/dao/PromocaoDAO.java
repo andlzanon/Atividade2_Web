@@ -42,7 +42,7 @@ public class PromocaoDAO {
             + " where (p.url_site=?) and (p.cnpj_hotel = h.cnpj)";
 
     private final static String VERIFICA_PROMOCAO_HOTEL_SQL = "select"
-            + " p.data_incial, p.data_final"
+            + " p.data_inicial, p.data_final"
             + " from Promocoes as p, Hotel as h"
             + " where (p.cnpj_hotel=?) and (p.cnpj_hotel = h.cnpj) and (p.data_inicial=?) and (p.data_final=?)";
 

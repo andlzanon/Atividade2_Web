@@ -13,6 +13,7 @@ import br.ufscar.dc.hotel.dao.PromocaoDAO;
 import br.ufscar.dc.hotel.dao.SiteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
@@ -68,22 +69,6 @@ public class NovaPromocao implements Serializable{
             mensagem.setMensagem(true, "Ocorreu um problema!", MensagemBootstrap.TipoMensagem.TIPO_ERRO);
         }
     }*/
-    /*
-    public void procurarCnpj(){
-        simularDemora();
-        try {
-            Hotel hotelEncontrado = hotelDAO.listarCNPJs(dadosPromocao.getCnpj().getCnpj());
-            if (hotelEncontrado == null){
-                mensagem.setMensagem(true, "Hotel ainda não cadastrado", MensagemBootstrap.TipoMensagem.TIPO_INFO);
-            } else {
-                mensagem.setMensagem(false, "Hotel cadastrado :)", MensagemBootstrap.TipoMensagem.TIPO_SUCESSO);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NovaPromocao.class.getName()).log(Level.SEVERE, null, ex);
-            mensagem.setMensagem(true, "Ocorreu um problema!", MensagemBootstrap.TipoMensagem.TIPO_ERRO);
-        }
-    }
-    */
 
     public boolean isEscondeBotao() {
         return escondeBotao;
@@ -112,7 +97,12 @@ public class NovaPromocao implements Serializable{
         simularDemora();
         
         try {
-            promocaoDAO.gravarPromocao(dadosPromocao);
+            Map<String, Object> sessionCnpj =FacesContext.getCurrentInstance().
+                   getExternalContext().getSessionMap();
+            dadosPromocao.getCnpj().setCnpj((String)sessionCnpj.get("cnpjHotel"));
+            if(!promocaoDAO.verificarPromocaoHotel(dadosPromocao.getCnpj().getCnpj(), new java.sql.Date(dadosPromocao.getData_inicial().getTime()), new java.sql.Date(dadosPromocao.getData_final().getTime()))){
+                promocaoDAO.gravarPromocao(dadosPromocao);
+            };
             recomecar();
             mensagem.setMensagem(true, "Sua Promoção foi registrada com sucesso!", 
                     MensagemBootstrap.TipoMensagem.TIPO_SUCESSO);

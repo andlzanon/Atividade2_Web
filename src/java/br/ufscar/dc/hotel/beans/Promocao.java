@@ -23,6 +23,7 @@ public class Promocao implements Serializable{
     
     public Promocao(){
         url = new Site();
+        cnpj = new Hotel();
     }
 
     public int getId() {
