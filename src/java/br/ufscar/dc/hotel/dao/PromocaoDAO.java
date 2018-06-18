@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,8 +61,20 @@ public class PromocaoDAO {
             ps.setString(1, p.getUrl().getUrl());
             ps.setString(2, p.getCnpj().getCnpj());
             ps.setDouble(3, p.getPreco());
-            ps.setDate(4, new java.sql.Date(p.getData_inicial().getTime()));
-            ps.setDate(5, new java.sql.Date(p.getData_final().getTime()));
+            //Formato data
+            SimpleDateFormat out = new SimpleDateFormat("yyyy-mm-dd");
+            //Instanciando as duas datas obtidas
+            java.sql.Date dI = new java.sql.Date(p.getData_inicial().getTime());
+            java.sql.Date dF = new java.sql.Date(p.getData_final().getTime());
+            //incrementando 1 dia, pois estava adicionando com 1 dia a menos no banco, sem motivo aparente
+            dI.setDate(dI.getDate()+1);
+            dF.setDate(dF.getDate()+1);
+            //Convertendo para string no formato correto
+            String sDi = out.format(dI);
+            String sDf = out.format(dF);
+            //valueOf recebe a data no formato String como argumento e retorna um objeto Date
+            ps.setDate(4, java.sql.Date.valueOf(sDi));
+            ps.setDate(5, java.sql.Date.valueOf(sDf));
             ps.execute();
         }
         return p;

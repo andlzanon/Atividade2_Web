@@ -4,19 +4,21 @@
  * and open the template in the editor.
  */
 package br.ufscar.dc.hotel.view;
-
-import br.ufscar.dc.hotel.beans.Hotel;
 import br.ufscar.dc.hotel.beans.Promocao;
-import br.ufscar.dc.hotel.beans.Site;
 import br.ufscar.dc.hotel.dao.HotelDAO;
 import br.ufscar.dc.hotel.dao.PromocaoDAO;
 import br.ufscar.dc.hotel.dao.SiteDAO;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
@@ -42,6 +44,30 @@ public class NovaPromocao implements Serializable{
     
     boolean escondeBotao;
     MensagemBootstrap mensagem;
+    
+    UIInput dinicialInput;
+ 
+    public void validarDatas(FacesContext context, UIComponent toValidate, Date data) {
+        simularDemora();
+        SimpleDateFormat out = new SimpleDateFormat("yyyy-mm-dd");
+        String sDi = out.format(dinicialInput.getValue());
+        String sDf = out.format(data);
+        Date dinicial = java.sql.Date.valueOf(sDi);
+        Date dfinal = java.sql.Date.valueOf(sDf);
+        if (dfinal.before(dinicial)) {
+            ((UIInput) toValidate).setValid(false);
+            FacesMessage message = new FacesMessage("Data final não pode ser anterior a Data inicial");
+            context.addMessage(toValidate.getClientId(context), message);
+        }
+    }
+    
+    public UIInput getdinicialInput() {
+        return dinicialInput;
+    }
+    
+    public void setdinicialInput(UIInput dinicialInput) {
+        this.dinicialInput = dinicialInput;
+    }
     
     public NovaPromocao(){
         recomecar();

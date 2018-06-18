@@ -66,14 +66,15 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="data_inicial">Data Inicial</label>
                                 <div class="col-sm-4">
-                                    <input type="text"
+                                    <input type="date"
                                            class="form-control"
                                            jsf:redisplay="true"
                                            jsf:id="data_inicial"
                                            jsf:label="Data Inicial"
+                                           jsf:binding="#{novaPromocao.dinicialInput}"
                                            jsf:value="#{novaPromocao.dadosPromocao.data_inicial}"
                                            jsf:required="true">
-                                           <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                           <f:convertDateTime type="date" pattern="yyyy-mm-dd" />
                                     </input>
                                     <h:message for="data_inicial" class="text text-danger" />
                                 </div>
@@ -81,14 +82,15 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="data_final">Data Final</label>
                                     <div class="col-sm-4">
-                                        <input type="text"
+                                        <input type="date"
                                            class="form-control"
                                            jsf:redisplay="true"
                                            jsf:id="data_final"
                                            jsf:label="Data Final"
                                            jsf:value="#{novaPromocao.dadosPromocao.data_final}"
+                                           jsf:validator="#{novaPromocao.validarDatas}"
                                            jsf:required="true">
-                                           <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                           <f:convertDateTime type="date" pattern="yyyy-mm-dd" />
                                         </input>
                                         <h:message for="data_final" class="text text-danger" />
                                     </div>
