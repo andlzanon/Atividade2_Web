@@ -5,23 +5,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
         <ui:composition template="./template.xhtml">
             <ui:define name="content">
-                 <div class="row" jsf:rendered="#{not (sessionScope.sessionToken eq 'sessionHotel')}">
+                 <div class="row" jsf:rendered="#{not (sessionScope.sessionToken eq 'sessionAdm')}">
                     <h1>Ops, parece que você não tem permissão para acessar esta página...</h1>
-                    <h3>É necessário o login de hotel</h3>
-                    <h3>Volte para a home ou veja todos os hotéis disponíveis</h3>
+                    <h3>É necessário o login de administrador</h3>
+                    <h3>Volte para a home ou veja todos os Sites disponíveis</h3>
                 </div>
                 
-                <div class="row" jsf:rendered="#{sessionScope.sessionToken eq 'sessionHotel'}">
+                <div class="row" jsf:rendered="#{sessionScope.sessionToken eq 'sessionAdm'}">
                     <div class="col-lg-12 text-center">
-                        <h3>Nova Promoção</h3>
-                        <form class="form-horizontal" jsf:id="formHotel">
-                            <div class="alert #{novaPromocao.mensagem.tipoMensagem}" jsf:id="mensagem">
-                            #{novaPromocao.mensagem.texto}
+                        <h3>Novo Site</h3>
+                        <form class="form-horizontal" jsf:id="formSite">
+                            <div class="alert #{novoSite.mensagem.tipoMensagem}" jsf:id="mensagem">
+                            #{novoSite.mensagem.texto}
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="url">URL</label>
@@ -30,69 +29,65 @@
                                            class="form-control"
                                            jsf:id="url"
                                            jsf:label="URL"
-                                           jsf:value="#{novaPromocao.dadosPromocao.url.url}"
-                                           jsf:required="true">
-                                    </input>
+                                           jsf:value="#{novoSite.dadosSite.url}"
+                                           jsf:required="true"
+                                           />
                                     <h:message for="url" class="text text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="cnpj">CNPJ do hotel</label>
+                                <label class="col-sm-2 control-label" for="nome">Nome</label>
                                 <div class="col-sm-10">
                                     <input type="text"
                                            class="form-control"
-                                           jsf:id="cnpj"
-                                           jsf:label="CNPJ hotel"
-                                           jsf:value="#{sessionScope.cnpjHotel}"
-                                           jsf:disabled="true"
+                                           jsf:id="nome"
+                                           jsf:label="nome"
+                                           jsf:value="#{novoSite.dadosSite.nome}"
                                            jsf:required="true"
                                            />
-                                    <h:message for="cnpj" class="text text-danger" />
+                                    <h:message for="nome" class="text text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="preco">Preço</label>
+                                <label class="col-sm-2 control-label" for="telefone">Telefone</label>
                                 <div class="col-sm-4">
                                     <input type="text"
                                            class="form-control"
-                                           jsf:id="preco"
-                                           jsf:label="Preço"
-                                           jsf:value="#{novaPromocao.dadosPromocao.preco}"
+                                           jsf:id="telefone"
+                                           jsf:label="Telefone"
+                                           jsf:value="#{novoSite.dadosSite.telefone}"
                                            jsf:required="true"
                                            />
-                                    <h:message for="preco" class="text text-danger" />
+                                    <h:message for="telefone" class="text text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="data_inicial">Data Inicial</label>
+                                <label class="col-sm-2 control-label"
+                                       for="senha">Senha</label>
                                 <div class="col-sm-4">
-                                    <input type="date"
+                                    <input type="password"
                                            class="form-control"
                                            jsf:redisplay="true"
-                                           jsf:id="data_inicial"
-                                           jsf:label="Data Inicial"
-                                           jsf:binding="#{novaPromocao.dinicialInput}"
-                                           jsf:value="#{novaPromocao.dadosPromocao.data_inicial}"
-                                           jsf:required="true">
-                                           <f:convertDateTime type="date" pattern="yyyy-mm-dd" />
-                                    </input>
-                                    <h:message for="data_inicial" class="text text-danger" />
+                                           jsf:id="senha"
+                                           jsf:label="Senha"
+                                           jsf:value="#{novoSite.dadosSite.senha}"
+                                           jsf:required="true"
+                                           />
+                                    <h:message for="senha" class="text text-danger" />
                                 </div>
                             </div>    
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="data_final">Data Final</label>
+                                <label class="col-sm-2 control-label"
+                                       for="senhaConfirmada">Confime sua senha</label>
                                     <div class="col-sm-4">
-                                        <input type="date"
+                                        <input type="password"
                                            class="form-control"
                                            jsf:redisplay="true"
-                                           jsf:id="data_final"
-                                           jsf:label="Data Final"
-                                           jsf:value="#{novaPromocao.dadosPromocao.data_final}"
-                                           jsf:validator="#{novaPromocao.validarDatas}"
-                                           jsf:required="true">
-                                           <f:convertDateTime type="date" pattern="yyyy-mm-dd" />
-                                        </input>
-                                        <h:message for="data_final" class="text text-danger" />
+                                           jsf:id="senhaConfirmada"
+                                           jsf:label="Confirme a senha"
+                                           jsf:value="#{novoSite.senhaConfirmada}"
+                                           jsf:required="true"/>
+                                        <h:message for="senhaConfirmada" class="text text-danger" />
                                     </div>
                             </div>
                             <div class="form-group">
@@ -102,12 +97,12 @@
                                         <f:ajax execute="@form"
                                                 render="@form"
                                                 onevent="monitorarAjax"
-                                                listener="#{novaPromocao.enviarPromocao}"/>
-                                        Enviar Promoção
+                                                listener="#{novoSite.enviarSite}"/>
+                                        Enviar meu Site
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-group" jsf:rendered="#{novaPromocao.escondeBotao}">
+                            <div class="form-group" jsf:rendered="#{novoSite.escondeBotao}">
                                 <div class="col-sm-12">
                                     <button type="submit" 
                                             class="btn btn-success"
@@ -115,8 +110,8 @@
                                             <f:ajax execute="@form"
                                                     render="@form"
                                                     onevent="monitorarAjax"
-                                                    listener="#{novaPromocao.confirmarPromocao}"/>
-                                        Confirmar nova Promoção
+                                                    listener="#{novoSite.confirmarSite}"/>
+                                        Confirmar novo Site
                                     </button>
                                 </div>                       
                             </div>

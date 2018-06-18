@@ -126,12 +126,19 @@ public class NovaPromocao implements Serializable{
             Map<String, Object> sessionCnpj =FacesContext.getCurrentInstance().
                    getExternalContext().getSessionMap();
             dadosPromocao.getCnpj().setCnpj((String)sessionCnpj.get("cnpjHotel"));
-            if(!promocaoDAO.verificarPromocaoHotel(dadosPromocao.getCnpj().getCnpj(), new java.sql.Date(dadosPromocao.getData_inicial().getTime()), new java.sql.Date(dadosPromocao.getData_final().getTime()))){
+            if(!promocaoDAO.verificarPromocaoHotel(dadosPromocao.getCnpj().getCnpj(), 
+                    new java.sql.Date(dadosPromocao.getData_inicial().getTime()), 
+                    new java.sql.Date(dadosPromocao.getData_final().getTime()))){
+                System.out.println("false");
                 promocaoDAO.gravarPromocao(dadosPromocao);
-            };
-            recomecar();
-            mensagem.setMensagem(true, "Sua Promoção foi registrada com sucesso!", 
+                recomecar();
+                mensagem.setMensagem(true, "Sua Promoção foi registrada com sucesso!", 
                     MensagemBootstrap.TipoMensagem.TIPO_SUCESSO);
+            }
+            else{
+                mensagem.setMensagem(true, "Já existe uma outra promoção com mesma data inicial e final!", 
+                    MensagemBootstrap.TipoMensagem.TIPO_ERRO);
+            }
         } catch (SQLException ex) {
             escondeBotao = false;
             Logger.getLogger(NovaPromocao.class.getName()).log(Level.SEVERE, null, ex);

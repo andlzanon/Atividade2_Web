@@ -139,13 +139,26 @@ public class PromocaoDAO {
         boolean existe = false;
         try (Connection con = dataSource.getConnection();
                 PreparedStatement ps = con.prepareStatement(VERIFICA_PROMOCAO_HOTEL_SQL)) {
+            
+            
+            SimpleDateFormat out = new SimpleDateFormat("yyyy-mm-dd");
+            //Instanciando as duas datas obtidas
+            java.sql.Date dI = new java.sql.Date(data_inicial.getTime());
+            java.sql.Date dF = new java.sql.Date(data_final.getTime());
+            //incrementando 1 dia, pois estava adicionando com 1 dia a menos no banco, sem motivo aparente
+            dI.setDate(dI.getDate()+1);
+            dF.setDate(dF.getDate()+1);
+            //Convertendo para string no formato correto
+            String sDi = out.format(dI);
+            String sDf = out.format(dF);
 
             ps.setString(1, cnpjHotel);
-            ps.setDate(2, (java.sql.Date) data_inicial);
-            ps.setDate(3, (java.sql.Date) data_final);
-
+            ps.setDate(2, java.sql.Date.valueOf(sDi));
+            ps.setDate(3, java.sql.Date.valueOf(sDf));
+            
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    System.out.println("true");
                     existe = true;
                 }
             }
